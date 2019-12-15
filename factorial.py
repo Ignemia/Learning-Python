@@ -14,10 +14,14 @@ def factorial(a):
         while x < a:
             x = x+1
             # Looks like issue with concatination
-            if x == a:
-                string_to_print += str(x)
-            else:
-                string_to_print += str(x)+"*"
+            # k. I think I know how to make this work
+
+            #they are called "inline Ternary conditions" and I have found this online as one way to use them. I like it
+            string_to_print += (str(x)+"*",str(x))[x == a]
+            #if x == a:
+            #    string_to_print += str(x)
+            #else:
+            #    string_to_print += str(x)+"*"
             #print(string_to_print)
             value_storage = value_storage*x
         return print("Factorial of "+str(a)+" is "+"1*"+string_to_print+" = "+str(value_storage))
