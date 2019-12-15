@@ -3,8 +3,8 @@
 from tkinter import *
 
 SPEED  = 1
-wWIDTH = 500
-wHEIGHT = 1000
+WWIDTH = 500
+WHEIGHT = 1000
 
 # Goal of the game is to press A or D and dodge asteroids for as long as possible.
 # I will attempt to apply my experience with JS canvas and JS apps in general
@@ -13,7 +13,7 @@ def runGame():
     root =  Tk()
 
     # if I understand it correctly AxB defines A width and B height of the window
-    root.geometry(str(wWIDTH)+"x"+str(wHEIGHT))
+    root.geometry(str(WWIDTH)+"x"+str(WHEIGHT))
 
     # this should disable resizability (I hope) on both axis' right?
     root.resizable(False, False)
@@ -50,7 +50,7 @@ class Player:
     def __init__(self, name, color):
         self._name = name
         self._color = color
-        self._posX = wWIDTH/2
+        self._posX = WWIDTH/2
 
     # Why do ALL the methods need self as the first argument
     def move(self, side):
