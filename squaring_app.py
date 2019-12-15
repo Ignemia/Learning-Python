@@ -10,7 +10,16 @@ def square(a):
 
     # somehow this is how you are supposed to cast types in python. I don't like it.
     # Well... it throws errors if I input characters or string into terminal. Will look into that and figure out try catch blocks.
-    a = int(a)
+    # let's see
+    try:
+        # The syntax is really demanding. One tab of and code doesn't work. It's getting on my nerves
+        a = int(a)
+    # why on earth is this not working?
+    #catch:
+
+    # Because there is no catch in python. It's except. WHY TF IS IT EXCEPT INSTEAD OF CATCH. 
+    except:
+        return print("Try number next time.")
 
     return print(a*a)
 
@@ -21,3 +30,5 @@ square(user_input)
 # ah s#17 doens't even work for numbers what is wrong
 # The error says that it doesn't work because I'm giving it string even tho I am using the number 5 as input. Why does it do that?
 # I'll try to cast it
+
+#Next commit I'll remove all the comments to clear out a lil' bit of space.
