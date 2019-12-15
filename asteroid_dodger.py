@@ -20,3 +20,5 @@ def runGame():
 
 def __main__():
     runGame()
+
+__main__()
