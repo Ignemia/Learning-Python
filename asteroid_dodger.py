@@ -2,8 +2,14 @@
 # On the internet they mostly use Tkinter for this type of apps. Let's see
 from tkinter import *
 from time import *
+# Don't ask me why
+from random import seed
+# I get this one
+from random import random
 
-SPEED  = 3.14
+import math as m
+
+SPEED  = 5
 WWIDTH = 500
 WHEIGHT = 1000
 FRAMERATE = 60
@@ -52,11 +58,13 @@ class Game:
         self._time = 0;
         self._amount_of_players = amount_of_players
         self._players = []
+        self._asteroids = []
         self._canvas = canvas
+        self._framecount = 0
 
         # let's make it black as in space would be
         canvas.create_rectangle(0,0,WWIDTH, WHEIGHT, fill="#272727")
-
+        
         # creating players
         for p in range(amount_of_players):
             self._players.append(Player("John Snow", "#fff", canvas))
@@ -72,9 +80,27 @@ class Game:
             self._canvas.create_rectangle(0,0,WWIDTH, WHEIGHT, fill="#272727")
         
             for player in self._players:
-                #player.moveLeft(1)
                 player.draw()
+
+
+            if self._framecount % (2*FRAMERATE/3) == 0:
+                newPosX = m.floor(random()*(WWIDTH-50)+25)
+                #print(len(self._asteroids))
+
+                if len(self._asteroids) >= 15:
+                    del self._asteroids[:7]
+
+                self._asteroids.append(Asteroid(newPosX, self._canvas))
+
+                
+
+            for steroid in self._asteroids:
+                steroid.move()
+                steroid.draw()
+
             sleep(1/FRAMERATE)
+
+            self._framecount = self._framecount+1
             
 
     def movePlayersLeft(self):
@@ -100,33 +126,45 @@ class Player:
 
     # Why do ALL the methods need self as the first argument
     def move(self, side):
-        print(side)
+        #print(side)
         if side.keysym == 'd':
             self.handleLeftMove()
         if side.keysym == 'a':
             self.handleRightMove()
 
-    def moveLeft(self):
-        print("Left")
-        self._posX -= 3
-        #root.bind('a', self.moveLeft)
-
-    def moveRight(self):
-        print("Right")
-        self._posX += 3
-        #root.canvas.bind('d', self.moveRight)
-
     def handleLeftMove(self):
-        self._posX += SPEED
+        if self._posX + 25 <= WWIDTH:
+            #print(self._posX + 25)
+            self._posX += SPEED
         #print("left")
 
     def handleRightMove(self):
-        self._posX -= SPEED
+        if self._posX - 25 >= 0:
+            #print(self._posX - 25)
+            self._posX -= SPEED
         #print("right")
 
     def draw(self):
         can = self._canvas
         can.create_rectangle(self._posX-25, WHEIGHT-150, self._posX+25, WHEIGHT-50, fill=self._color)
+
+
+class Asteroid:
+    def __init__(self, posX, canvas):
+        self._posX = posX
+        self._size = m.floor(random()*75)+25
+        self._posY = -self._size/2
+        self._canvas = canvas
+    def draw(self):
+        self._canvas.create_rectangle(
+            self._posX - (self._size/2),  
+            self._posY - (self._size/2), 
+            self._posX + (self._size/2),
+            self._posY + (self._size/2), 
+            fill="#fff")
+    def move(self):
+        #print(self._posY)
+        self._posY += 5
 
 
 def __main__():
