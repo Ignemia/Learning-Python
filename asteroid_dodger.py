@@ -77,6 +77,7 @@ class Game:
     def refresh(self):
         while True:
             self._canvas.update()
+            self._canvas.delete(ALL)
             self._canvas.create_rectangle(0,0,WWIDTH, WHEIGHT, fill="#272727")
         
             for player in self._players:
